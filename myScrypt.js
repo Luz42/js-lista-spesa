@@ -22,29 +22,52 @@ let containerHTML = document.querySelector('.ae-lista')
 console.log(containerHTML)
 
 //inizializzo il contatore (NECESSARIO) che verrà incrementato ad ogni ciclo
+
 let i = 0
 console.log(i)
 //il contatore andrà a selezionare un elemento diverso della lista ad ogni ciclo, il quale verrà stampato
-while(i < list.length){
-   //fino al verificarsi della condizione
-    containerHTML.innerHTML += `<li class="border-bottom border-dark py-2 border-2">${list[i]}</li>`
-    //questo comando viene eseguito ad ogni ciclo
+    while(i < list.length){
+    //fino al verificarsi della condizione
+     containerHTML.innerHTML += `<li class="border-bottom border-dark py-2 border-2">${list[i]}</li>`
+     //questo comando viene eseguito ad ogni ciclo
 
-    i++
-    //successivamente viene eseguito questo comando, NECESSARIO per far funzionare e poter uscire dal ciclo
-}
+     i++
+     //successivamente viene eseguito questo comando, NECESSARIO per far funzionare e poter uscire dal ciclo
+    }
+
+const clickAddElement = document.getElementById('requestButton')
 
 
-// const clickAddElement = document.getElementById('requestButton')
-// //al click
-// clickAddElement.addEventListener('click',
-//     function(){
+//al click
+clickAddElement.addEventListener('click',
+    function(){
+        
+        //si prende il nuovo valore/contenuto
+        const newElement = document.getElementById('newElement')
+        let addElement = newElement.value
+        console.log(addElement)
+        
+        //se il valore è presente nell'input
+        if(addElement){
+            //si svuota la vecchia lista
+            containerHTML.innerHTML = ''
+            //allora verrà aggiunto nella lista
+            list.push(addElement)
+            console.log(list)
 
-//         const newElement = document.getElementById('newElement')
-//         let addElement = newElement.value
-//         const newList = list.push(addElement)
-//         console.log(newList)
-// })
+            //quindi la lista verrà stampata
+            i = 0
+            console.log(i)
+
+            while(i < list.length){
+                //perchè non funziona la condizione??????????????????????????
+                if(addElement !== list.includes(i)){
+                    containerHTML.innerHTML += `<li class="border-bottom border-dark py-2 border-2">${list[i]}</li>`
+                    i++
+                }
+            }
+        }
+});
 //prende il valore dell'input
 
 //lo inserisce nella lista
