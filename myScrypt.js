@@ -22,7 +22,7 @@ let containerHTML = document.querySelector('.ae-lista')
 console.log(containerHTML)
 
 //inizializzo il contatore (NECESSARIO) che verrà incrementato ad ogni ciclo
-
+/*
 let i = 0
 console.log(i)
 //il contatore andrà a selezionare un elemento diverso della lista ad ogni ciclo, il quale verrà stampato
@@ -34,6 +34,9 @@ console.log(i)
      i++
      //successivamente viene eseguito questo comando, NECESSARIO per far funzionare e poter uscire dal ciclo
     }
+*/
+
+createList(containerHTML, list)
 
 const clickAddElement = document.getElementById('requestButton')
 
@@ -48,26 +51,75 @@ clickAddElement.addEventListener('click',
         console.log(addElement)
         
         //se il valore è presente nell'input
-        if(addElement){
-            //si svuota la vecchia lista
-            containerHTML.innerHTML = ''
-            //allora verrà aggiunto nella lista
-            list.push(addElement)
-            console.log(list)
-
-            //quindi la lista verrà stampata
-            i = 0
-            console.log(i)
-
-            while(i < list.length){
-                //perchè non funziona la condizione??????????????????????????
-                if(addElement !== list.includes(i)){
-                    containerHTML.innerHTML += `<li class="border-bottom border-dark py-2 border-2">${list[i]}</li>`
-                    i++
+        if(addElement && isNaN(addElement)){
+            let presentElement = false
+            list.forEach(element => {
+                
+                //allora verrà aggiunto nella lista
+                if(addElement == element){
+                    presentElement = true
                 }
-            }
-        }
-});
-//prende il valore dell'input
+            });
 
-//lo inserisce nella lista
+            switch(presentElement){
+                case false:
+                
+                    list.push(addElement)
+                    console.log(list)
+
+                    //si svuota la vecchia lista
+                    containerHTML.innerHTML = ''
+                        
+
+                    //quindi la lista verrà stampata
+                    createList(containerHTML, list)
+
+                    break;
+                    
+                default:
+
+                    alert(`${addElement} è già presente nella lista`)
+
+            }
+            
+        }
+        else{
+            alert(`Inserisci un oggetto`)
+        }
+
+});
+
+
+
+
+//CREATA UNA FUNZIONE CHE CREA LA LISTA DATO UN ARRAY E UN CONTAINER DOVE INSERIRLA
+function createList(container, array){
+
+    let i = 0
+    console.log(i)
+    //il contatore andrà a selezionare un elemento diverso della lista ad ogni ciclo, il quale verrà stampato
+    while(i < array.length){
+    //fino al verificarsi della condizione
+     container.innerHTML += `<li class="border-bottom border-dark py-2 border-2">${array[i]}</li>`
+     //questo comando viene eseguito ad ogni ciclo
+
+     i++
+     //successivamente viene eseguito questo comando, NECESSARIO per far funzionare e poter uscire dal ciclo
+    }
+
+    return container
+
+}
+
+
+/*
+********************BONUS*******************
+aggiunto un tasto RIMUOVI questo andrà a rimuovere, ogni volta, l'ultimo elemento della lista
+
+********************PLUS********************
+come posso evitare che venga inserito del codice html nell'input?
+
+con la funzione .match() è possibile verificare se sono presenti i valori che si vogliono evitare/includere all'interno di una stringa
+
+*/
+
